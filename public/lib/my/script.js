@@ -133,17 +133,17 @@ var fallLeaves = function() {
         l.animate(
           {cy: 400, cx: l.x + getRandomInt(-100, 100)},
           getRandomInt(100, 10000))
-      })(leaves[i]), getRandomInt(100, 20000))
+      })(leaves[i]), getRandomInt(1000, 30000))
     }
   }, 15000)
 }
 fallLeaves()
 setTimeout(function() {
-  bg2.animate({fill: 'rgba(133, 86, 51, 1)'}, 10000)
+  bg2.animate({fill: 'rgba(202, 180, 61, 1)'}, 10000)
 }, 10000)
 
 setTimeout(function() {
-  bg.animate({fill: 'rgba(54, 100, 126, 1)'}, 10000)
+  bg.animate({fill: 'rgba(154, 184, 207, 1)'}, 10000)
 }, 10000)
 
 setTimeout(function() {
