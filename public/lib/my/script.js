@@ -1,10 +1,27 @@
-/*globals console, Snap, setTimeout*/
+/*globals console, Snap, setTimeout, mina*/
 
 var tree = {};
 
 var getRandomInt = function(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+var redLeaves = function() {
+  setTimeout(function() {
+    var i = leaves.length;
+    while (i--) {
+      setTimeout((function(l) {
+        l.animate({
+          fill: 'rgba(255, 112, 0, 1)',
+          stroke: 'rgba(255, 112, 0, 1)'
+        }, getRandomInt(1000, 4000))
+      })(leaves[i]), getRandomInt(1000, 4000))
+    }
+  }, getRandomInt(1000, 4000))
+}
+
+
+var leaves = [];
 
 var s = Snap(800, 600);
 var bg = s.rect(0, 0, 800, 600).attr({
@@ -13,7 +30,7 @@ var bg = s.rect(0, 0, 800, 600).attr({
 var sun = s.circle(-100, 300, 50).attr({
   fill: '#E1F50A'
 })
-bg = s.rect(0, 400, 800, 600).attr({
+var bg2 = s.rect(0, 400, 800, 600).attr({
   fill: '#145409'
 })
 sun.animate({
@@ -23,20 +40,22 @@ sun.animate({
 console.log(sun);
 
 var createLeaf = function(elem, count) {
-  var i;
+  var i, leave;
   if (!count) return;
+
   setTimeout(function() {
-    s.circle(elem.tmpx2 + getRandomInt(-20, 20), elem.tmpy2 + getRandomInt(-20, 20), 0).attr({
+    var x = elem.tmpx2 + getRandomInt(-20, 20);
+    leave = s.circle(x, elem.tmpy2 + getRandomInt(-20, 20), 0).attr({
       stroke: "#2BCC40",
       fill: "#2BCC40"
     }).animate({
-      r: 2
+      r: getRandomInt(1,7)
     }, 10, function() {
       createLeaf(elem, count - 1);
     });
+    leave.x = x;
+    leaves.push(leave);
   }, 5)
-
-
 }
 
 var createBranches = function(elem, parent) {
@@ -85,9 +104,11 @@ var createBranches = function(elem, parent) {
         fill: "#361605"
       });
 
-      circle2.animate({r: strokeWidth/2}, 2000)
+      circle2.animate({
+        r: strokeWidth / 2
+      }, 2000)
 
-      createLeaf(elem, level * 4);
+      createLeaf(elem, level * 2);
 
       for (i = 0; i < count; i++) {
         new_branch = {
@@ -102,3 +123,29 @@ var createBranches = function(elem, parent) {
 };
 
 createBranches(tree);
+setTimeout(redLeaves, 10000);
+var fallLeaves = function() {
+  setTimeout(function() {
+    var i = leaves.length;
+    while (i--) {
+      setTimeout((function(l) {
+                    if(!getRandomInt(0, 2)) return;
+        l.animate(
+          {cy: 400, cx: l.x + getRandomInt(-100, 100)},
+          getRandomInt(100, 10000))
+      })(leaves[i]), getRandomInt(100, 20000))
+    }
+  }, 15000)
+}
+fallLeaves()
+setTimeout(function() {
+  bg2.animate({fill: 'rgba(133, 86, 51, 1)'}, 10000)
+}, 10000)
+
+setTimeout(function() {
+  bg.animate({fill: 'rgba(54, 100, 126, 1)'}, 10000)
+}, 10000)
+
+setTimeout(function() {
+  sun.animate({cy: 200}, 10000)
+}, 10000)
