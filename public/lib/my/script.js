@@ -131,10 +131,12 @@ var fallLeaves = function() {
     var i = leaves.length;
     while (i--) {
       setTimeout((function(l) {
-                    if(!getRandomInt(0, 2)) return;
-        l.animate(
-          {cy: 400, cx: l.x + getRandomInt(-100, 100)},
-          getRandomInt(100, 10000))
+                    return function() {
+                      if(!getRandomInt(0, 2)) return;
+                      l.animate(
+                        {cy: 400, cx: l.x + getRandomInt(-100, 500)},
+                        getRandomInt(100, 10000), mina.backin)
+                    }
       })(leaves[i]), getRandomInt(1000, 30000))
     }
   }, 15000)
@@ -151,3 +153,7 @@ setTimeout(function() {
 setTimeout(function() {
   sun.animate({cy: 200}, 10000)
 }, 10000)
+
+setTimeout(function() {
+location.reload()
+}, 100000)
