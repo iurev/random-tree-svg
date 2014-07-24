@@ -11,8 +11,9 @@ var redLeaves = function() {
     var i = leaves.length;
     while (i--) {
       setTimeout((function(l) {
+                    var red = getRandomInt(200, 255)
         l.animate({
-          fill: 'rgba(255, 112, 0, 1)',
+          fill: 'rgba(' + red + ', 112, 0, 1)',
           stroke: 'rgba(255, 112, 0, 1)'
         }, getRandomInt(1000, 4000))
       })(leaves[i]), getRandomInt(1000, 4000))
@@ -45,9 +46,10 @@ var createLeaf = function(elem, count) {
 
   setTimeout(function() {
     var x = elem.tmpx2 + getRandomInt(-20, 20);
+    var green = getRandomInt(180, 230)
     leave = s.circle(x, elem.tmpy2 + getRandomInt(-20, 20), 0).attr({
       stroke: "#2BCC40",
-      fill: "#2BCC40"
+      fill: 'rgba(43,' + green + ', 64, 1)'
     }).animate({
       r: getRandomInt(1,7)
     }, 10, function() {
