@@ -83,8 +83,10 @@ var createBranches = function(elem, parent) {
 
   var strokeWidth = 10 - level;
 
+  var red = getRandomInt(40, 100);
+  var color = 'rgba(' + red + ', 30, 30, 1)';
   var ln = s.line(elem.x1, elem.y1, elem.x2, elem.y2).attr({
-    stroke: "#361605",
+    stroke: color,
     strokeWidth: 1
   });
 
